@@ -1,0 +1,898 @@
+
+uart_atmega8.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002fe  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000084  00800060  000002fe  00000392  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000003  008000e4  008000e4  00000416  2**0
+                  ALLOC
+  3 .debug_aranges 00000020  00000000  00000000  00000416  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 000000e4  00000000  00000000  00000436  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000004db  00000000  00000000  0000051a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000015b  00000000  00000000  000009f5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000540  00000000  00000000  00000b50  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000d0  00000000  00000000  00001090  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000103  00000000  00000000  00001160  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000186  00000000  00000000  00001263  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	f6 c0       	rjmp	.+492    	; 0x204 <__vector_11>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	ee ef       	ldi	r30, 0xFE	; 254
+  3a:	f2 e0       	ldi	r31, 0x02	; 2
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
+
+0000003e <.do_copy_data_loop>:
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+
+00000042 <.do_copy_data_start>:
+  42:	a4 3e       	cpi	r26, 0xE4	; 228
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <.do_copy_data_loop>
+
+00000048 <__do_clear_bss>:
+  48:	10 e0       	ldi	r17, 0x00	; 0
+  4a:	a4 ee       	ldi	r26, 0xE4	; 228
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a7 3e       	cpi	r26, 0xE7	; 231
+  54:	b1 07       	cpc	r27, r17
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	f3 d0       	rcall	.+486    	; 0x240 <main>
+  5a:	4f c1       	rjmp	.+670    	; 0x2fa <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <_delay_us>:
+unsigned char byte_receive = 0;
+unsigned char i = 1;
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+  5e:	90 e0       	ldi	r25, 0x00	; 0
+  60:	03 c0       	rjmp	.+6      	; 0x68 <_delay_us+0xa>
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+  62:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+  64:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+  66:	9f 5f       	subi	r25, 0xFF	; 255
+  68:	98 17       	cp	r25, r24
+  6a:	d8 f3       	brcs	.-10     	; 0x62 <_delay_us+0x4>
+{
+asm volatile(" PUSH  R0 ");
+asm volatile(" POP   R0 ");
+}
+}
+  6c:	08 95       	ret
+
+0000006e <_delay_ms>:
+
+// Функция задержки в мс
+void _delay_ms(unsigned int time_ms)
+{ register unsigned int i;
+  6e:	40 e0       	ldi	r20, 0x00	; 0
+  70:	50 e0       	ldi	r21, 0x00	; 0
+  72:	1a c0       	rjmp	.+52     	; 0xa8 <_delay_ms+0x3a>
+
+for(i = 0; i < time_ms; i++)
+  74:	20 e0       	ldi	r18, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+  76:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+  78:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+  7a:	2f 5f       	subi	r18, 0xFF	; 255
+  7c:	2a 3f       	cpi	r18, 0xFA	; 250
+  7e:	d9 f7       	brne	.-10     	; 0x76 <_delay_ms+0x8>
+  80:	20 e0       	ldi	r18, 0x00	; 0
+{
+asm volatile(" PUSH  R0 ");
+  82:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+  84:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+  86:	2f 5f       	subi	r18, 0xFF	; 255
+  88:	2a 3f       	cpi	r18, 0xFA	; 250
+  8a:	d9 f7       	brne	.-10     	; 0x82 <_delay_ms+0x14>
+  8c:	20 e0       	ldi	r18, 0x00	; 0
+{
+asm volatile(" PUSH  R0 ");
+  8e:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+  90:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+  92:	2f 5f       	subi	r18, 0xFF	; 255
+  94:	2a 3f       	cpi	r18, 0xFA	; 250
+  96:	d9 f7       	brne	.-10     	; 0x8e <_delay_ms+0x20>
+  98:	20 e0       	ldi	r18, 0x00	; 0
+{
+asm volatile(" PUSH  R0 ");
+  9a:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+  9c:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+  9e:	2f 5f       	subi	r18, 0xFF	; 255
+  a0:	2a 3f       	cpi	r18, 0xFA	; 250
+  a2:	d9 f7       	brne	.-10     	; 0x9a <_delay_ms+0x2c>
+
+// Функция задержки в мс
+void _delay_ms(unsigned int time_ms)
+{ register unsigned int i;
+
+for(i = 0; i < time_ms; i++)
+  a4:	4f 5f       	subi	r20, 0xFF	; 255
+  a6:	5f 4f       	sbci	r21, 0xFF	; 255
+  a8:	48 17       	cp	r20, r24
+  aa:	59 07       	cpc	r21, r25
+  ac:	18 f3       	brcs	.-58     	; 0x74 <_delay_ms+0x6>
+_delay_us(250);
+_delay_us(250);
+_delay_us(250);
+_delay_us(250);
+}
+}
+  ae:	08 95       	ret
+
+000000b0 <lcd_com>:
+#define RS PD2 
+#define EN PD3
+
+// Функция передачи команды
+void lcd_com(unsigned char p)
+{
+  b0:	28 2f       	mov	r18, r24
+PORTD &= ~(1 << RS); // RS = 0 (запись команд)
+  b2:	92 98       	cbi	0x12, 2	; 18
+PORTD |= (1 << EN); // EN = 1 (начало записи команды в LCD)
+  b4:	93 9a       	sbi	0x12, 3	; 18
+PORTD &= 0x0F; PORTD |= (p & 0xF0); // старший нибл
+  b6:	82 b3       	in	r24, 0x12	; 18
+  b8:	8f 70       	andi	r24, 0x0F	; 15
+  ba:	82 bb       	out	0x12, r24	; 18
+  bc:	92 b3       	in	r25, 0x12	; 18
+  be:	82 2f       	mov	r24, r18
+  c0:	80 7f       	andi	r24, 0xF0	; 240
+  c2:	89 2b       	or	r24, r25
+  c4:	82 bb       	out	0x12, r24	; 18
+  c6:	80 e0       	ldi	r24, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+  c8:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+  ca:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+  cc:	8f 5f       	subi	r24, 0xFF	; 255
+  ce:	84 36       	cpi	r24, 0x64	; 100
+  d0:	d9 f7       	brne	.-10     	; 0xc8 <lcd_com+0x18>
+{
+PORTD &= ~(1 << RS); // RS = 0 (запись команд)
+PORTD |= (1 << EN); // EN = 1 (начало записи команды в LCD)
+PORTD &= 0x0F; PORTD |= (p & 0xF0); // старший нибл
+_delay_us(100);
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+  d2:	93 98       	cbi	0x12, 3	; 18
+  d4:	80 e0       	ldi	r24, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+  d6:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+  d8:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+  da:	8f 5f       	subi	r24, 0xFF	; 255
+  dc:	84 36       	cpi	r24, 0x64	; 100
+  de:	d9 f7       	brne	.-10     	; 0xd6 <lcd_com+0x26>
+PORTD |= (1 << EN); // EN = 1 (начало записи команды в LCD)
+PORTD &= 0x0F; PORTD |= (p & 0xF0); // старший нибл
+_delay_us(100);
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+_delay_us(100);
+PORTD |= (1 << EN); // EN = 1 (начало записи команды в LCD)
+  e0:	93 9a       	sbi	0x12, 3	; 18
+PORTD &= 0x0F; PORTD |= (p << 4); // младший нибл
+  e2:	82 b3       	in	r24, 0x12	; 18
+  e4:	8f 70       	andi	r24, 0x0F	; 15
+  e6:	82 bb       	out	0x12, r24	; 18
+  e8:	82 b3       	in	r24, 0x12	; 18
+  ea:	22 95       	swap	r18
+  ec:	20 7f       	andi	r18, 0xF0	; 240
+  ee:	82 2b       	or	r24, r18
+  f0:	82 bb       	out	0x12, r24	; 18
+  f2:	80 e0       	ldi	r24, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+  f4:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+  f6:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+  f8:	8f 5f       	subi	r24, 0xFF	; 255
+  fa:	84 36       	cpi	r24, 0x64	; 100
+  fc:	d9 f7       	brne	.-10     	; 0xf4 <lcd_com+0x44>
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+_delay_us(100);
+PORTD |= (1 << EN); // EN = 1 (начало записи команды в LCD)
+PORTD &= 0x0F; PORTD |= (p << 4); // младший нибл
+_delay_us(100);
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+  fe:	93 98       	cbi	0x12, 3	; 18
+ 100:	80 e0       	ldi	r24, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+ 102:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+ 104:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+ 106:	8f 5f       	subi	r24, 0xFF	; 255
+ 108:	84 36       	cpi	r24, 0x64	; 100
+ 10a:	d9 f7       	brne	.-10     	; 0x102 <lcd_com+0x52>
+PORTD |= (1 << EN); // EN = 1 (начало записи команды в LCD)
+PORTD &= 0x0F; PORTD |= (p << 4); // младший нибл
+_delay_us(100);
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+_delay_us(100);
+}
+ 10c:	08 95       	ret
+
+0000010e <lcd_data>:
+
+// Функция передачи данных
+void lcd_data(unsigned char p)
+{
+ 10e:	28 2f       	mov	r18, r24
+PORTD |= (1 << RS)|(1 << EN); // RS = 1 (запись данных), EN - 1 (начало записи команды в LCD)
+ 110:	82 b3       	in	r24, 0x12	; 18
+ 112:	8c 60       	ori	r24, 0x0C	; 12
+ 114:	82 bb       	out	0x12, r24	; 18
+PORTD &= 0x0F; PORTD |= (p & 0xF0); // старший нибл
+ 116:	82 b3       	in	r24, 0x12	; 18
+ 118:	8f 70       	andi	r24, 0x0F	; 15
+ 11a:	82 bb       	out	0x12, r24	; 18
+ 11c:	92 b3       	in	r25, 0x12	; 18
+ 11e:	82 2f       	mov	r24, r18
+ 120:	80 7f       	andi	r24, 0xF0	; 240
+ 122:	89 2b       	or	r24, r25
+ 124:	82 bb       	out	0x12, r24	; 18
+ 126:	80 e0       	ldi	r24, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+ 128:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+ 12a:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+ 12c:	8f 5f       	subi	r24, 0xFF	; 255
+ 12e:	84 36       	cpi	r24, 0x64	; 100
+ 130:	d9 f7       	brne	.-10     	; 0x128 <lcd_data+0x1a>
+void lcd_data(unsigned char p)
+{
+PORTD |= (1 << RS)|(1 << EN); // RS = 1 (запись данных), EN - 1 (начало записи команды в LCD)
+PORTD &= 0x0F; PORTD |= (p & 0xF0); // старший нибл
+_delay_us(100);
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+ 132:	93 98       	cbi	0x12, 3	; 18
+ 134:	80 e0       	ldi	r24, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+ 136:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+ 138:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+ 13a:	8f 5f       	subi	r24, 0xFF	; 255
+ 13c:	84 36       	cpi	r24, 0x64	; 100
+ 13e:	d9 f7       	brne	.-10     	; 0x136 <lcd_data+0x28>
+PORTD |= (1 << RS)|(1 << EN); // RS = 1 (запись данных), EN - 1 (начало записи команды в LCD)
+PORTD &= 0x0F; PORTD |= (p & 0xF0); // старший нибл
+_delay_us(100);
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+_delay_us(100);
+PORTD |= (1 << EN); // EN = 1 (начало записи команды в LCD)
+ 140:	93 9a       	sbi	0x12, 3	; 18
+PORTD &= 0x0F; PORTD |= (p << 4); // младший нибл
+ 142:	82 b3       	in	r24, 0x12	; 18
+ 144:	8f 70       	andi	r24, 0x0F	; 15
+ 146:	82 bb       	out	0x12, r24	; 18
+ 148:	82 b3       	in	r24, 0x12	; 18
+ 14a:	22 95       	swap	r18
+ 14c:	20 7f       	andi	r18, 0xF0	; 240
+ 14e:	82 2b       	or	r24, r18
+ 150:	82 bb       	out	0x12, r24	; 18
+ 152:	80 e0       	ldi	r24, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+ 154:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+ 156:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+ 158:	8f 5f       	subi	r24, 0xFF	; 255
+ 15a:	84 36       	cpi	r24, 0x64	; 100
+ 15c:	d9 f7       	brne	.-10     	; 0x154 <lcd_data+0x46>
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+_delay_us(100);
+PORTD |= (1 << EN); // EN = 1 (начало записи команды в LCD)
+PORTD &= 0x0F; PORTD |= (p << 4); // младший нибл
+_delay_us(100);
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+ 15e:	93 98       	cbi	0x12, 3	; 18
+ 160:	80 e0       	ldi	r24, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+ 162:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+ 164:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+ 166:	8f 5f       	subi	r24, 0xFF	; 255
+ 168:	84 36       	cpi	r24, 0x64	; 100
+ 16a:	d9 f7       	brne	.-10     	; 0x162 <lcd_data+0x54>
+PORTD |= (1 << EN); // EN = 1 (начало записи команды в LCD)
+PORTD &= 0x0F; PORTD |= (p << 4); // младший нибл
+_delay_us(100);
+PORTD &= ~(1 << EN); // EN = 0 (конец записи команды в LCD)
+_delay_us(100);
+}
+ 16c:	08 95       	ret
+
+0000016e <lcd_init>:
+
+// Функция инициализации LCD
+void lcd_init(void)
+{
+_delay_ms(50); // Ожидание готовности ЖК-модуля
+ 16e:	82 e3       	ldi	r24, 0x32	; 50
+ 170:	90 e0       	ldi	r25, 0x00	; 0
+ 172:	7d df       	rcall	.-262    	; 0x6e <_delay_ms>
+
+// Конфигурирование четырехразрядного режима
+PORTD |= (1 << PD5);
+ 174:	95 9a       	sbi	0x12, 5	; 18
+PORTD &= ~(1 << PD4);
+ 176:	94 98       	cbi	0x12, 4	; 18
+
+// Активизация четырехразрядного режима
+PORTD |= (1 << EN);
+ 178:	93 9a       	sbi	0x12, 3	; 18
+PORTD &= ~(1 << EN);
+ 17a:	93 98       	cbi	0x12, 3	; 18
+_delay_ms(5); 
+ 17c:	85 e0       	ldi	r24, 0x05	; 5
+ 17e:	90 e0       	ldi	r25, 0x00	; 0
+ 180:	76 df       	rcall	.-276    	; 0x6e <_delay_ms>
+
+lcd_com(0x28); // шина 4 бит, LCD - 2 строки
+ 182:	88 e2       	ldi	r24, 0x28	; 40
+ 184:	95 df       	rcall	.-214    	; 0xb0 <lcd_com>
+lcd_com(0x08); // полное выключение дисплея
+ 186:	88 e0       	ldi	r24, 0x08	; 8
+ 188:	93 df       	rcall	.-218    	; 0xb0 <lcd_com>
+lcd_com(0x01); // очистка дисплея
+ 18a:	81 e0       	ldi	r24, 0x01	; 1
+ 18c:	91 df       	rcall	.-222    	; 0xb0 <lcd_com>
+ 18e:	80 e0       	ldi	r24, 0x00	; 0
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+{
+asm volatile(" PUSH  R0 ");
+ 190:	0f 92       	push	r0
+asm volatile(" POP   R0 ");
+ 192:	0f 90       	pop	r0
+
+// Функция задержки в мкс
+void _delay_us(unsigned char time_us)
+{ register unsigned char i;
+
+for(i = 0; i < time_us; i++)
+ 194:	8f 5f       	subi	r24, 0xFF	; 255
+ 196:	84 36       	cpi	r24, 0x64	; 100
+ 198:	d9 f7       	brne	.-10     	; 0x190 <lcd_init+0x22>
+
+lcd_com(0x28); // шина 4 бит, LCD - 2 строки
+lcd_com(0x08); // полное выключение дисплея
+lcd_com(0x01); // очистка дисплея
+_delay_us(100);
+lcd_com(0x06); // сдвиг курсора вправо
+ 19a:	86 e0       	ldi	r24, 0x06	; 6
+ 19c:	89 df       	rcall	.-238    	; 0xb0 <lcd_com>
+lcd_com(0x0C); // включение дисплея, курсор не видим
+ 19e:	8c e0       	ldi	r24, 0x0C	; 12
+ 1a0:	87 df       	rcall	.-242    	; 0xb0 <lcd_com>
+}
+ 1a2:	08 95       	ret
+
+000001a4 <lcd_string>:
+
+// Функция вывода строки на LCD
+void lcd_string(unsigned char command, char *string)
+{
+ 1a4:	1f 93       	push	r17
+ 1a6:	cf 93       	push	r28
+ 1a8:	df 93       	push	r29
+ 1aa:	18 2f       	mov	r17, r24
+ 1ac:	eb 01       	movw	r28, r22
+lcd_com(0x0C);
+ 1ae:	8c e0       	ldi	r24, 0x0C	; 12
+ 1b0:	7f df       	rcall	.-258    	; 0xb0 <lcd_com>
+lcd_com(command);
+ 1b2:	81 2f       	mov	r24, r17
+ 1b4:	7d df       	rcall	.-262    	; 0xb0 <lcd_com>
+ 1b6:	02 c0       	rjmp	.+4      	; 0x1bc <lcd_string+0x18>
+while(*string != '\0')
+{
+lcd_data(*string);
+ 1b8:	aa df       	rcall	.-172    	; 0x10e <lcd_data>
+string++;
+ 1ba:	21 96       	adiw	r28, 0x01	; 1
+// Функция вывода строки на LCD
+void lcd_string(unsigned char command, char *string)
+{
+lcd_com(0x0C);
+lcd_com(command);
+while(*string != '\0')
+ 1bc:	88 81       	ld	r24, Y
+ 1be:	88 23       	and	r24, r24
+ 1c0:	d9 f7       	brne	.-10     	; 0x1b8 <lcd_string+0x14>
+{
+lcd_data(*string);
+string++;
+}
+}
+ 1c2:	df 91       	pop	r29
+ 1c4:	cf 91       	pop	r28
+ 1c6:	1f 91       	pop	r17
+ 1c8:	08 95       	ret
+
+000001ca <uart_send>:
+
+// Функция передачи данных по USART
+void uart_send(char data)
+{
+while(!( UCSRA & (1 << UDRE)));	// Ожидаем когда очистится буфер передачи
+ 1ca:	5d 9b       	sbis	0x0b, 5	; 11
+ 1cc:	fe cf       	rjmp	.-4      	; 0x1ca <uart_send>
+UDR = data; // Помещаем данные в буфер, начинаем передачу
+ 1ce:	8c b9       	out	0x0c, r24	; 12
+}
+ 1d0:	08 95       	ret
+
+000001d2 <str_uart_send>:
+
+// Функция передачи строки по USART
+void str_uart_send(char *string)
+{
+ 1d2:	fc 01       	movw	r30, r24
+ 1d4:	04 c0       	rjmp	.+8      	; 0x1de <str_uart_send+0xc>
+}
+
+// Функция передачи данных по USART
+void uart_send(char data)
+{
+while(!( UCSRA & (1 << UDRE)));	// Ожидаем когда очистится буфер передачи
+ 1d6:	5d 9b       	sbis	0x0b, 5	; 11
+ 1d8:	fe cf       	rjmp	.-4      	; 0x1d6 <str_uart_send+0x4>
+UDR = data; // Помещаем данные в буфер, начинаем передачу
+ 1da:	8c b9       	out	0x0c, r24	; 12
+void str_uart_send(char *string)
+{
+while(*string != '\0')
+{
+uart_send(*string);
+string++;
+ 1dc:	31 96       	adiw	r30, 0x01	; 1
+}
+
+// Функция передачи строки по USART
+void str_uart_send(char *string)
+{
+while(*string != '\0')
+ 1de:	80 81       	ld	r24, Z
+ 1e0:	88 23       	and	r24, r24
+ 1e2:	c9 f7       	brne	.-14     	; 0x1d6 <str_uart_send+0x4>
+{
+uart_send(*string);
+string++;
+}
+}
+ 1e4:	08 95       	ret
+
+000001e6 <uart_receive>:
+
+// Функция приема данных по USART
+int uart_receive(void)
+{
+while(!(UCSRA & (1 << RXC))); // Ожидаем, когда данные будут получены
+ 1e6:	5f 9b       	sbis	0x0b, 7	; 11
+ 1e8:	fe cf       	rjmp	.-4      	; 0x1e6 <uart_receive>
+return UDR; // Читаем данные из буфера и возвращаем их при выходе из подпрограммы
+ 1ea:	8c b1       	in	r24, 0x0c	; 12
+}
+ 1ec:	90 e0       	ldi	r25, 0x00	; 0
+ 1ee:	08 95       	ret
+
+000001f0 <uart_init>:
+// USART Приемник: Включен
+// USART Передатчик: Включен
+// USART Режим: Асинхронный
+// USART Скорость обмена: 9600
+
+UBRRL = (F_CPU/BAUDRATE/16-1); // Вычисляем скорость обмена данными  
+ 1f0:	83 e3       	ldi	r24, 0x33	; 51
+ 1f2:	89 b9       	out	0x09, r24	; 9
+UBRRH = (F_CPU/BAUDRATE/16-1)>>8;
+ 1f4:	10 bc       	out	0x20, r1	; 32
+
+UCSRB |= (1 << RXCIE)| // Разрешаем прерывание по завершению приема данных
+ 1f6:	8a b1       	in	r24, 0x0a	; 10
+ 1f8:	88 69       	ori	r24, 0x98	; 152
+ 1fa:	8a b9       	out	0x0a, r24	; 10
+          (1 << RXEN)|(1 << TXEN); // Включаем приемник и передатчик
+                                                
+UCSRC |= (1 << URSEL)| // Для доступа к регистру UCSRC выставляем бит URSEL
+ 1fc:	80 b5       	in	r24, 0x20	; 32
+ 1fe:	86 68       	ori	r24, 0x86	; 134
+ 200:	80 bd       	out	0x20, r24	; 32
+         (1 << UCSZ1)|(1 << UCSZ0); // Размер посылки в кадре 8 бит
+}
+ 202:	08 95       	ret
+
+00000204 <__vector_11>:
+
+// Прерывание по окончанию приема данных по USART
+ISR(USART_RXC_vect)
+{
+ 204:	1f 92       	push	r1
+ 206:	0f 92       	push	r0
+ 208:	0f b6       	in	r0, 0x3f	; 63
+ 20a:	0f 92       	push	r0
+ 20c:	11 24       	eor	r1, r1
+ 20e:	8f 93       	push	r24
+ 210:	9f 93       	push	r25
+NUM = UDR; // Принимаем символ по USART
+ 212:	9c b1       	in	r25, 0x0c	; 12
+ 214:	90 93 e4 00 	sts	0x00E4, r25
+byte_receive = 1;
+ 218:	81 e0       	ldi	r24, 0x01	; 1
+ 21a:	80 93 e6 00 	sts	0x00E6, r24
+}
+
+// Функция передачи данных по USART
+void uart_send(char data)
+{
+while(!( UCSRA & (1 << UDRE)));	// Ожидаем когда очистится буфер передачи
+ 21e:	5d 9b       	sbis	0x0b, 5	; 11
+ 220:	fe cf       	rjmp	.-4      	; 0x21e <__vector_11+0x1a>
+UDR = data; // Помещаем данные в буфер, начинаем передачу
+ 222:	9c b9       	out	0x0c, r25	; 12
+{
+NUM = UDR; // Принимаем символ по USART
+byte_receive = 1;
+uart_send(NUM); // Посылаем символ по USART
+	
+if(NUM == 'a') // Если принят символ "a", включаем светодиод
+ 224:	91 36       	cpi	r25, 0x61	; 97
+ 226:	11 f4       	brne	.+4      	; 0x22c <__vector_11+0x28>
+PORTB |= (1 << PB0);
+ 228:	c0 9a       	sbi	0x18, 0	; 24
+ 22a:	03 c0       	rjmp	.+6      	; 0x232 <__vector_11+0x2e>
+if(NUM == 'b') // Если принят символ "b", выключаем светодиод
+ 22c:	92 36       	cpi	r25, 0x62	; 98
+ 22e:	09 f4       	brne	.+2      	; 0x232 <__vector_11+0x2e>
+PORTB &= ~(1 << PB0);
+ 230:	c0 98       	cbi	0x18, 0	; 24
+}
+ 232:	9f 91       	pop	r25
+ 234:	8f 91       	pop	r24
+ 236:	0f 90       	pop	r0
+ 238:	0f be       	out	0x3f, r0	; 63
+ 23a:	0f 90       	pop	r0
+ 23c:	1f 90       	pop	r1
+ 23e:	18 95       	reti
+
+00000240 <main>:
+
+// Главная функция
+int main(void)
+{
+DDRB |= (1 << PB0); // Светодиод
+ 240:	b8 9a       	sbi	0x17, 0	; 23
+PORTB = 0x00;        			
+ 242:	18 ba       	out	0x18, r1	; 24
+
+DDRC  = 0x00;	
+ 244:	14 ba       	out	0x14, r1	; 20
+PORTC = 0xFF;
+ 246:	8f ef       	ldi	r24, 0xFF	; 255
+ 248:	85 bb       	out	0x15, r24	; 21
+	
+DDRD  = 0b11111110;
+ 24a:	8e ef       	ldi	r24, 0xFE	; 254
+ 24c:	81 bb       	out	0x11, r24	; 17
+PORTD = 0x00;
+ 24e:	12 ba       	out	0x12, r1	; 18
+	
+lcd_init(); // Инициализация LCD
+ 250:	8e df       	rcall	.-228    	; 0x16e <lcd_init>
+uart_init(); // Инициализация USART
+ 252:	ce df       	rcall	.-100    	; 0x1f0 <uart_init>
+	
+sei(); // Глобально разрешаем прерывания
+ 254:	78 94       	sei
+
+str_uart_send("Initialization system\r\n"); // Передаем строку по USART
+ 256:	80 e6       	ldi	r24, 0x60	; 96
+ 258:	90 e0       	ldi	r25, 0x00	; 0
+ 25a:	bb df       	rcall	.-138    	; 0x1d2 <str_uart_send>
+lcd_string(0x80, " AVR USART TEST "); // Выводим строку на LCD
+ 25c:	80 e8       	ldi	r24, 0x80	; 128
+ 25e:	68 e7       	ldi	r22, 0x78	; 120
+ 260:	70 e0       	ldi	r23, 0x00	; 0
+ 262:	a0 df       	rcall	.-192    	; 0x1a4 <lcd_string>
+_delay_ms(2500);
+ 264:	84 ec       	ldi	r24, 0xC4	; 196
+ 266:	99 e0       	ldi	r25, 0x09	; 9
+ 268:	02 df       	rcall	.-508    	; 0x6e <_delay_ms>
+lcd_com(0x01); // Очищаем LCD
+ 26a:	81 e0       	ldi	r24, 0x01	; 1
+ 26c:	21 df       	rcall	.-446    	; 0xb0 <lcd_com>
+	
+while(1)
+{
+
+if((PINC & (1 << PC0)) == 0) // Если нажата кнопка 1
+ 26e:	98 99       	sbic	0x13, 0	; 19
+ 270:	0e c0       	rjmp	.+28     	; 0x28e <main+0x4e>
+{
+while((PINC & (1 << PC0))==0){} // Ждем отпускания кнопки 1
+ 272:	98 9b       	sbis	0x13, 0	; 19
+ 274:	fe cf       	rjmp	.-4      	; 0x272 <main+0x32>
+str_uart_send("Button 1 TEST\r\n"); // Передаем строку по USART
+ 276:	89 e8       	ldi	r24, 0x89	; 137
+ 278:	90 e0       	ldi	r25, 0x00	; 0
+ 27a:	ab df       	rcall	.-170    	; 0x1d2 <str_uart_send>
+lcd_string(0x80, "Button 1 TEST"); // Выводим строку на LCD
+ 27c:	80 e8       	ldi	r24, 0x80	; 128
+ 27e:	69 e9       	ldi	r22, 0x99	; 153
+ 280:	70 e0       	ldi	r23, 0x00	; 0
+ 282:	90 df       	rcall	.-224    	; 0x1a4 <lcd_string>
+_delay_ms(1000);
+ 284:	88 ee       	ldi	r24, 0xE8	; 232
+ 286:	93 e0       	ldi	r25, 0x03	; 3
+ 288:	f2 de       	rcall	.-540    	; 0x6e <_delay_ms>
+lcd_com(0x01); // Очищаем LCD
+ 28a:	81 e0       	ldi	r24, 0x01	; 1
+ 28c:	11 df       	rcall	.-478    	; 0xb0 <lcd_com>
+}
+
+if((PINC & (1 << PC1)) == 0) // Если нажата кнопка 2
+ 28e:	99 99       	sbic	0x13, 1	; 19
+ 290:	0e c0       	rjmp	.+28     	; 0x2ae <main+0x6e>
+{
+while((PINC & (1 << PC1))==0){} // Ждем отпускания кнопки 2
+ 292:	99 9b       	sbis	0x13, 1	; 19
+ 294:	fe cf       	rjmp	.-4      	; 0x292 <main+0x52>
+str_uart_send("Button 2 TEST\r\n"); // Передаем строку по USART
+ 296:	87 ea       	ldi	r24, 0xA7	; 167
+ 298:	90 e0       	ldi	r25, 0x00	; 0
+ 29a:	9b df       	rcall	.-202    	; 0x1d2 <str_uart_send>
+lcd_string(0x80, "Button 2 TEST"); // Выводим строку на LCD
+ 29c:	80 e8       	ldi	r24, 0x80	; 128
+ 29e:	67 eb       	ldi	r22, 0xB7	; 183
+ 2a0:	70 e0       	ldi	r23, 0x00	; 0
+ 2a2:	80 df       	rcall	.-256    	; 0x1a4 <lcd_string>
+_delay_ms(1000);
+ 2a4:	88 ee       	ldi	r24, 0xE8	; 232
+ 2a6:	93 e0       	ldi	r25, 0x03	; 3
+ 2a8:	e2 de       	rcall	.-572    	; 0x6e <_delay_ms>
+lcd_com(0x01); // Очищаем LCD
+ 2aa:	81 e0       	ldi	r24, 0x01	; 1
+ 2ac:	01 df       	rcall	.-510    	; 0xb0 <lcd_com>
+}
+
+if((PINC & (1 << PC2)) == 0) // Если нажата кнопка 3
+ 2ae:	9a 99       	sbic	0x13, 2	; 19
+ 2b0:	0e c0       	rjmp	.+28     	; 0x2ce <main+0x8e>
+{
+while((PINC & (1 << PC2))==0){} // Ждем отпускания кнопки 3
+ 2b2:	9a 9b       	sbis	0x13, 2	; 19
+ 2b4:	fe cf       	rjmp	.-4      	; 0x2b2 <main+0x72>
+str_uart_send("Button 3 TEST\r\n"); // Передаем строку по USART
+ 2b6:	85 ec       	ldi	r24, 0xC5	; 197
+ 2b8:	90 e0       	ldi	r25, 0x00	; 0
+ 2ba:	8b df       	rcall	.-234    	; 0x1d2 <str_uart_send>
+lcd_string(0x80, "Button 3 TEST"); // Выводим строку на LCD 
+ 2bc:	80 e8       	ldi	r24, 0x80	; 128
+ 2be:	65 ed       	ldi	r22, 0xD5	; 213
+ 2c0:	70 e0       	ldi	r23, 0x00	; 0
+ 2c2:	70 df       	rcall	.-288    	; 0x1a4 <lcd_string>
+_delay_ms(1000);
+ 2c4:	88 ee       	ldi	r24, 0xE8	; 232
+ 2c6:	93 e0       	ldi	r25, 0x03	; 3
+ 2c8:	d2 de       	rcall	.-604    	; 0x6e <_delay_ms>
+lcd_com(0x01); // Очищаем LCD
+ 2ca:	81 e0       	ldi	r24, 0x01	; 1
+ 2cc:	f1 de       	rcall	.-542    	; 0xb0 <lcd_com>
+}		
+
+if(byte_receive)
+ 2ce:	80 91 e6 00 	lds	r24, 0x00E6
+ 2d2:	88 23       	and	r24, r24
+ 2d4:	61 f2       	breq	.-104    	; 0x26e <main+0x2e>
+{
+byte_receive = 0;
+ 2d6:	10 92 e6 00 	sts	0x00E6, r1
+count++;
+ 2da:	80 91 e5 00 	lds	r24, 0x00E5
+ 2de:	8f 5f       	subi	r24, 0xFF	; 255
+ 2e0:	80 93 e5 00 	sts	0x00E5, r24
+lcd_data(NUM); // Выводим символ на LCD
+ 2e4:	80 91 e4 00 	lds	r24, 0x00E4
+ 2e8:	12 df       	rcall	.-476    	; 0x10e <lcd_data>
+if(count > 16) // Если строка заполнена
+ 2ea:	80 91 e5 00 	lds	r24, 0x00E5
+ 2ee:	81 31       	cpi	r24, 0x11	; 17
+ 2f0:	08 f4       	brcc	.+2      	; 0x2f4 <main+0xb4>
+ 2f2:	bd cf       	rjmp	.-134    	; 0x26e <main+0x2e>
+{
+count = 0;
+ 2f4:	10 92 e5 00 	sts	0x00E5, r1
+ 2f8:	b8 cf       	rjmp	.-144    	; 0x26a <main+0x2a>
+
+000002fa <_exit>:
+ 2fa:	f8 94       	cli
+
+000002fc <__stop_program>:
+ 2fc:	ff cf       	rjmp	.-2      	; 0x2fc <__stop_program>
